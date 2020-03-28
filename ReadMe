@@ -12,9 +12,17 @@ kafka topic -> sample
 
 follow below link--
 https://www.onlinetutorialspoint.com/spring-boot/sending-spring-boot-kafka-json-message-to-kafka-topic.html
-to start consumer:
 
-$KAFKA_HOME/bin/kafka-console-consumer.sh --zookeeper localhost:2181 --topic sample --from-beginning
+$ZOOKEEPER_HOME/bin/zkServer.sh start
+$KAFKA_HOME/bin/kafka-server-start.sh config/server.properties
+
+cd $KAFKA_HOME
+/bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic test1
+
+to start consumer:
+$KAFKA_HOME/bin/kafka-topics.sh --list --zookeeper localhost:2181
+$KAFKA_HOME/bin/kafka-console-consumer.sh --zookeeper localhost:2181 --topic test1 --from-beginning
+$KAFKA_HOME/bin/kafka-topics.sh --zookeeper localhost:2181 --delete --topic sample
 
 install postman plugin to browser to test json
 
@@ -23,9 +31,12 @@ post --> body --> raw
 --json
 
 {
-	"id": 1,
-	"name": "Lenovo",
-	"category":"Laptop"
+  "id": 1,
+  "name": "Lenovo",
+  "category":"Laptop"
 }
 
 http://localhost:8080/producer/postItem
+
+https://www.opencodez.com/java/implement-custom-value-serializer-apache-kafka.htm
+

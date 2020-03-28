@@ -18,6 +18,8 @@ import org.springframework.kafka.support.serializer.JsonSerializer;
 	    @Bean
 	    public ProducerFactory<String,Item> producerFactory(){
 	        Map<String,Object> config = new HashMap<>();
+	        
+	        config.put(JsonSerializer.ADD_TYPE_INFO_HEADERS, false); //adding because giving magic error
 	        config.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG,"127.0.0.1:9092");
 	        config.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
 	        config.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
